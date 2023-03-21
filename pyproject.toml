@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "netmiko_bridge"
+urls = { Homepage = "https://github.com/ousui/netmiko_bridge" }
+authors = [{ name = "shuai w.", email = "x@ousui.org" }]
+description = "A decorator for Netmiko vendor driver extension."
+requires-python = ">=3.6"
+keywords = ["netmiko"]
+readme = "README.md"
+license = { text = "BSD-3-Clause" }
+classifiers = [
+    "Framework :: Netmiko",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "netmiko"
+]
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = { attr = "netmiko_bridge.VERSION" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["test*"]
