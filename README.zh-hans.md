@@ -1,6 +1,6 @@
 # Netmiko Bridge
 
-[English](./README.md)|简体中文
+[English](./README.md) | 简体中文
 
 这个工程是一个 [Netmiko](https://github.com/ktbyers/netmiko) 的厂商驱动扩展程序。
 

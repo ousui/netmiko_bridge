@@ -1,6 +1,6 @@
 # Netmiko Bridge
 
-English|[简体中文](./README_zh_CN.md)
+English | [简体中文](./README.zh-hans.md)
 
 This is a decorator for [Netmiko](https://github.com/ktbyers/netmiko) vendor driver extension.
 
@@ -41,7 +41,9 @@ pip install -f {netmiko_bridge_path}/dist/ --upgrade netmiko_bridge
 
 ### Install via PyPi
 
-Sorry, I'm not upload the module to PyPi.
+```bash
+pip install netmiko-bridge
+```
 
 ## How to use
 
