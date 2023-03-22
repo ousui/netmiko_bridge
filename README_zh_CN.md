@@ -1,56 +1,53 @@
 # Netmiko Bridge
 
-English|[简体中文](./README_zh_CN.md)
+[English](./README.md)|简体中文
 
-This is a decorator for [Netmiko](https://github.com/ktbyers/netmiko) vendor driver extension.
+这个工程是一个 [Netmiko](https://github.com/ktbyers/netmiko) 的厂商驱动扩展程序。
 
-You can use this module to add yourself vendor driver without modify [Netmiko](https://github.com/ktbyers/netmiko) source code.
+您可以利用这个模块在 [Netmiko](https://github.com/ktbyers/netmiko) 中添加自己需要的模块，而无需修改 [Netmiko](https://github.com/ktbyers/netmiko) 的源代码。
 
-## How to build
+## 如何构建
 
-First you must install __wheel__ or __build__ with `pip`.
+首先您需要使用 `pip` 安装 __wheel__ 或 __build__。以下使用 build 举例。
 
-This example is use __build__.
-
-### use build
+### 使用 __build__
 
 ```bash
 pip install --upgrade build
 ```
 
-Then you can build this module.
+然后构建模块
 ```bash
 python -m build
 ```
 
-## How to install
+## 如何安装
 
-### Install via Directory
+### 源码安装
 
-You can install __netmiko_bridge__ direct with directory.
+您可以通过文件夹的形式直接安装 __netmiko_bridge__.
 ```bash
 pip install --upgrade {netmiko_bridge_path}
 ```
 
-### Install via Binary
+### 二进制安装
 
-After build this module, you can install it to your system.
+在构建之后，您可以将本模块安装到您的系统。
 ```bash
 pip install -f {netmiko_bridge_path}/dist/ --upgrade netmiko_bridge
 ```
 
-### Install via PyPi
+### PyPi 安装
 
-Sorry, I'm not upload the module to PyPi.
+抱歉，我还没空上传包到 PyPi.
 
-## How to use
+## 如何使用
 
-### 1. Netmiko source code modify
+### 1. Netmiko 源码修改
 
-To use this module, you must do some minimal modify in [Netmiko](https://github.com/ktbyers/netmiko).
-
-In file [`netmiko/ssh_dispatcher.py`](https://github.com/ktbyers/netmiko/blob/develop/netmiko/ssh_dispatcher.py), 
-please add this code before `def ConnectHandler(*args: Any, **kwargs: Any) -> "BaseConnection":`, like
+要想使用这个模块，需要对 [Netmiko](https://github.com/ktbyers/netmiko) 做一丢丢修改。
+在文件 [`netmiko/ssh_dispatcher.py`](https://github.com/ktbyers/netmiko/blob/develop/netmiko/ssh_dispatcher.py) 中 
+的 `def ConnectHandler(*args: Any, **kwargs: Any) -> "BaseConnection":` 代码前，添加如下所示代码
 ```python
 import netmiko_bridge
 @netmiko_bridge.connect_handler_bridge(platforms, vendor_module = "your_custom_driver_module_package", vendor_getter_attr = "your_custom_vendor_getter_attr_name")
@@ -58,7 +55,7 @@ def ConnectHandler(*args: Any, **kwargs: Any) -> "BaseConnection":
     """......"""
 ```
 
-You can also use the default value on the `ConnectHandler` decorator
+您也可以给 `ConnectHandler` 的装饰器使用默认值
 ```python
 import netmiko_bridge
 @netmiko_bridge.connect_handler_bridge(platforms)
@@ -66,7 +63,7 @@ def ConnectHandler(*args: Any, **kwargs: Any) -> "BaseConnection":
     """......"""
 ```
 
-This the bash script help you to modify the source code, and it can match more netmiko version.
+这是一段快速修改源码的 bash 脚本。这段脚本可以匹配大多数 netmiko 版本。
 ```bash
 _python_lib_path=/usr/lib64/python3.6/site-packages
 _netmiko_fix_file=${_python_lib_path}/netmiko/ssh_dispatcher.py
@@ -78,9 +75,9 @@ if [ -f "${_netmiko_fix_file}" ]; then
 fi
 ```
 
-### 2. VendorGetter Instance 
+### 2. VendorGetter 实例 
 
-Then you can build yourself vendor driver module like this
+接下来您可以构建您自己的厂商驱动模块，像这样
 ```python
 from netmiko_bridge.vendor_getter import VendorGetter
 from netmiko.cisco_base_connection import CiscoBaseConnection
@@ -100,14 +97,13 @@ vendor_getter.add_vendor({
 })
 ```
 
-To build vendor module, you can reference module [`netmiko_bridge_vendor`](https://github.com/ousui/netmiko_bridge_vendor). 
+构建更像样的厂商模块，您可以参考模块 [`netmiko_bridge_vendor`](https://github.com/ousui/netmiko_bridge_vendor). 
 
-### 3. Use netmiko
+### 3. Netmiko 使用
 
-Now you can use [Netmiko](https://github.com/ktbyers/netmiko) with yourself vendor device driver.
+现在，您就可以使用自定义的厂商驱动来使用 [Netmiko](https://github.com/ktbyers/netmiko) 了
 ```python
 from netmiko.ssh_dispatcher import ConnectHandler
 
 conn = ConnectHandler(device_type='custom_device')
-
 ```
